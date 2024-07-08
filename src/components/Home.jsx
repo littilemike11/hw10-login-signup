@@ -1,10 +1,8 @@
-import NavBar from "./NavBar";
 import Hero from "./Hero";
 import { useContext, useEffect, useState } from 'react'
 import { AppContext } from "../App";
 
-export default function Home(props) {
-    const setIsLoggedIn = useContext(AppContext).setIsLoggedIn;
+export default function Home() {
     const isLoggedIn = useContext(AppContext).isLoggedIn;
 
     const [user, setUser] = useState({})

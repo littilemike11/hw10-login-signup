@@ -1,4 +1,3 @@
-import NavBar from "./NavBar"
 import { Link, redirect } from "react-router-dom"
 import createUser from "../users"
 import { useEffect, useState, useContext } from "react";
