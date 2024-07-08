@@ -18,16 +18,16 @@ function App() {
     console.log(JSON.parse(isLoggedIn));
   }, [isLoggedIn]);
 
-  const handleLogin = () => {
+  const signOut = () => {
     if (isLoggedIn) {
-      setIsLoggedIn(!isLoggedIn)
+      setIsLoggedIn(false)
     }
   };
 
   return (
     <>
       <NavBar
-        button={<button onClick={handleLogin} className="btn">{isLoggedIn ? "Log Out" : "Log In"} </button>}
+        button={<button onClick={signOut} className="btn">{isLoggedIn ? "Log Out" : "Log In"} </button>}
       />
       <AppContext.Provider value={{ setIsLoggedIn, isLoggedIn }}>
         <Outlet />
