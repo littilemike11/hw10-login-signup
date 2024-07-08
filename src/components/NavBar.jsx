@@ -12,7 +12,7 @@ export default function NavBar(props) {
                         <Link to="/" className="btn btn-ghost text-xl">Hw 10</Link>
                     </div>
                     <div className="navbar-end">
-                        {!props.isLoggedIn ? <Link to="/login">{props.button}</Link> : <Link to="/">{props.button}</Link>}
+                        <Link to="/login">{props.button}</Link>
                     </div>
                 </div>
             </nav>

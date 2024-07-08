@@ -7,12 +7,12 @@ import { Outlet } from "react-router-dom";
 export const AppContext = createContext(null);
 
 function App() {
+  //set isLoggedIn to false on default or the value of it in local storage
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     const status = JSON.parse(localStorage.getItem("isLoggedIn"));
     return status || false
   });
-  const [loginText, setLoginText] = useState("Log In");
-
+  //update value of isLoggedIn in local storage on change
   useEffect(() => {
     localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
     console.log(JSON.parse(isLoggedIn));
