@@ -7,26 +7,28 @@ import { Outlet } from "react-router-dom";
 export const AppContext = createContext(null);
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const status = JSON.parse(localStorage.getItem("isLoggedIn"));
+    return status || false
+  });
   const [loginText, setLoginText] = useState("Log In");
 
-  // useEffect(() => {
-  //   localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
-  //   console.log(JSON.parse(isLoggedIn));
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+    console.log(JSON.parse(isLoggedIn));
+  }, [isLoggedIn]);
 
   const handleLogin = () => {
-    console.log(isLoggedIn); // false expected
-    setIsLoggedIn(!isLoggedIn);
-    console.log(isLoggedIn); // why still false?
-    if (!isLoggedIn) {
-      setLoginText("Log Out");
-    } else setLoginText("Log In");
+    if (isLoggedIn) {
+      setIsLoggedIn(!isLoggedIn)
+    }
   };
 
   return (
     <>
-      <NavBar button={<button onClick={handleLogin}>{loginText}</button>} />
+      <NavBar
+        button={<button onClick={handleLogin} className="btn">{isLoggedIn ? "Log Out" : "Log In"} </button>}
+      />
       <AppContext.Provider value={{ setIsLoggedIn, isLoggedIn }}>
         <Outlet />
       </AppContext.Provider>

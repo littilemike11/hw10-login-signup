@@ -1,5 +1,5 @@
 import NavBar from "./NavBar"
-import { Link } from "react-router-dom"
+import { Link, redirect } from "react-router-dom"
 import createUser from "../users"
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../App";
@@ -38,6 +38,7 @@ export default function SignUp() {
         let newUser = createUser({ username, password })
         setUsers([...users, newUser])
         console.log(newUser)
+        return redirect("/");
     }
 
     return (
@@ -259,13 +260,14 @@ export default function SignUp() {
                         Cancel
                     </button>
 
-                    <Link onClick={submit}>
-                        <button
-                            type="button"
-                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                            Save
-                        </button>
-                    </Link>
+
+                    <button
+                        onClick={submit}
+                        type="button"
+                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Save
+                    </button>
+
 
 
 
