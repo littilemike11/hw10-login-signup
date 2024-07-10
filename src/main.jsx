@@ -5,6 +5,7 @@ import App from './App.jsx'
 import Login from './components/Login'
 import SignUp from './components/SignUp.jsx'
 import Home from './components/Home'
+import Secure from './components/Secure.jsx'
 import './index.css'
 
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      {
+        path: '/secure',
+        element: <Secure />
       },
       {
         path: '/login',

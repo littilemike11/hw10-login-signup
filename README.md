@@ -1,8 +1,25 @@
-# React + Vite
+# HW 10 - Sign Up and Log In
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Summary
 
-Currently, two official plugins are available:
+This project consists of a sign up and login sheet. The user can sign up to create an account. Their info is stored. Then they can log in with the correct credentials.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to Run
+
+1. clone the project
+
+```
+git clone https://github.com/littilemike11/hw10-login-signup.git
+```
+
+2. install modules
+
+```
+npm install
+```
+
+## How it Works
+
+### Routes / Pgs
+
+The program uses react dom browser router and router provider to create routes to the different pages. The "parent" or root component is App, and it consists of 3 children : Home, Log In and Sign Up

@@ -2,6 +2,7 @@ import { Link, redirect } from "react-router-dom"
 import createUser from "../users"
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../App";
+import { useNavigate } from "react-router-dom";
 export default function SignUp() {
 
     const [users, setUsers] = useState(() => {
@@ -12,7 +13,7 @@ export default function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
     const app = useContext(AppContext);
-
+    const navigate = useNavigate()
     // when users[] is updated, the function runs
     // the function saves users[] to localStorage under the key "users"
     useEffect(() => {
@@ -37,7 +38,8 @@ export default function SignUp() {
         let newUser = createUser({ username, password })
         setUsers([...users, newUser])
         console.log(newUser)
-        return redirect("/");
+        navigate("/")
+
     }
 
     return (
