@@ -8,7 +8,8 @@ export default function Home() {
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        let userID = localStorage.getItem("userID")
+        let userID = localStorage.getItem("userID");
+        if (userID == null) return// for first time opening
         setUser(JSON.parse(localStorage.getItem("users"))[userID])
 
     }, [])

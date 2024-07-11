@@ -1,9 +1,8 @@
 const userCollection = [];
 //make id change to index
-let userCount = 0;
 function createUser(form) {
   const user = {};
-  user.id = userCount++;
+  user.id = form.id;
   user.username = form.username;
   user.password = form.password;
   user.bio = form.bio;

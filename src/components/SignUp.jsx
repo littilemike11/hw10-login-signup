@@ -1,4 +1,3 @@
-import { Link, redirect } from "react-router-dom"
 import createUser from "../users"
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../App";
@@ -7,8 +6,12 @@ export default function SignUp() {
 
     const [users, setUsers] = useState(() => {
         const savedUsers = JSON.parse(localStorage.getItem("users"));
-        return savedUsers || []
+        return savedUsers || [];
     });
+    const [userCount, setUserCount] = useState(() => {
+        const existingUsers = JSON.parse(localStorage.getItem("userCount"));
+        return existingUsers || 0;
+    })
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -17,7 +20,8 @@ export default function SignUp() {
     // when users[] is updated, the function runs
     // the function saves users[] to localStorage under the key "users"
     useEffect(() => {
-        localStorage.setItem("users", JSON.stringify(users))
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("userCount", JSON.stringify(userCount));
         console.log("app context", app)
     }, [users])
 
@@ -35,8 +39,10 @@ export default function SignUp() {
     function submit() {
         if (username.trim() == "" || password.trim() == "") return
 
-        let newUser = createUser({ username, password })
+        let id = userCount
+        let newUser = createUser({ id, username, password })
         setUsers([...users, newUser])
+        setUserCount(userCount + 1)
         console.log(newUser)
         navigate("/")
 
