@@ -21,7 +21,6 @@ export default function SignUp() {
     // the function saves users[] to localStorage under the key "users"
     useEffect(() => {
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("userCount", JSON.stringify(userCount));
         console.log("app context", app)
     }, [users])
 
@@ -35,19 +34,21 @@ export default function SignUp() {
         setConfirmPassword(e.target.value)
     }
 
-    let isApproved = false;
-    function submit() {
-        if (username.trim() == "" || password.trim() == "") return
 
+    async function submit() {
+        if (username.trim() == "" || password.trim() == "") return
         let id = userCount
         let newUser = createUser({ id, username, password })
         setUsers([...users, newUser])
         setUserCount(userCount + 1)
         console.log(newUser)
-        navigate("/")
-
     }
-
+    async function signUp() {
+        // wait for info to be stored from submit function
+        await submit();
+        //go to home screen once submit is completed
+        navigate("/")
+    }
     return (
         <>
 
@@ -269,7 +270,7 @@ export default function SignUp() {
 
 
                     <button
-                        onClick={submit}
+                        onClick={signUp}
                         type="button"
                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Save
