@@ -1,6 +1,5 @@
 import createUser from "../users"
-import { useEffect, useState, useContext } from "react";
-import { AppContext } from "../App";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
 
@@ -15,31 +14,41 @@ export default function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("")
-    const app = useContext(AppContext);
-    const navigate = useNavigate()
+    const [bio, setBio] = useState("");
+    const [fname, setfname] = useState("");
+    const [lname, setlname] = useState("");
+    const [email, setEmail] = useState("");
+    const [country, setCountry] = useState("United States");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zip, setZip] = useState("");
+
     // when users[] is updated, the function runs
     // the function saves users[] to localStorage under the key "users"
     useEffect(() => {
         localStorage.setItem("users", JSON.stringify(users));
         localStorage.setItem("userCount", JSON.stringify(userCount));
-        console.log("app context", app)
     }, [users])
 
-    const handleUsername = (e) => {
-        setUsername(e.target.value)
+    /**
+     * Accepts an event e, and setter function from useState. Use setter function to update corresponding useState variable to user input
+     * @param {Event} e 
+     * @param {Function} setterFunc 
+     */
+    function getInput(e, setterFunc) {
+        setterFunc(e.target.value)
     }
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
-    }
-    const handleConfirmPassword = (e) => {
-        setConfirmPassword(e.target.value)
-    }
+    // function handleCountry(e) {
+    //     setCountry(e.target.value)
+    //     console(e.target.value)
+    // }
 
-
+    const navigate = useNavigate()
     async function submit() {
         if (username.trim() == "" || password.trim() == "") return
         let id = userCount
-        let newUser = createUser({ id, username, password })
+        let newUser = createUser({ id, username, password, bio, fname, lname, email, country, address, city, state, zip })
         setUsers([...users, newUser])
         setUserCount(userCount + 1)
         console.log(newUser)
@@ -73,7 +82,7 @@ export default function SignUp() {
                                             name="username"
                                             id="username"
                                             value={username}
-                                            onChange={handleUsername}
+                                            onChange={(e) => { getInput(e, setUsername) }}
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                             placeholder="janesmith"
                                         />
@@ -91,7 +100,7 @@ export default function SignUp() {
                                             name="password"
                                             id="password"
                                             value={password}
-                                            onChange={handlePassword}
+                                            onChange={(e) => { getInput(e, setPassword) }}
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                         />
                                     </div>
@@ -108,7 +117,7 @@ export default function SignUp() {
                                             name="confirm-password"
                                             id="confirm-password"
                                             value={confirmPassword}
-                                            onChange={handleConfirmPassword}
+                                            onChange={(e) => getInput(e, setConfirmPassword)}
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                         />
                                     </div>
@@ -125,8 +134,10 @@ export default function SignUp() {
                                         id="about"
                                         name="about"
                                         rows={3}
-                                        className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        defaultValue={''}
+                                        className="px-4 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+
+                                        value={bio}
+                                        onChange={(e) => getInput(e, setBio)}
                                     />
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
@@ -149,6 +160,8 @@ export default function SignUp() {
                                         id="first-name"
                                         autoComplete="given-name"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={fname}
+                                        onChange={(e) => getInput(e, setfname)}
                                     />
                                 </div>
                             </div>
@@ -164,6 +177,8 @@ export default function SignUp() {
                                         id="last-name"
                                         autoComplete="family-name"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={lname}
+                                        onChange={(e) => getInput(e, setlname)}
                                     />
                                 </div>
                             </div>
@@ -179,16 +194,19 @@ export default function SignUp() {
                                         type="email"
                                         autoComplete="email"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={email}
+                                        onChange={(e) => getInput(e, setEmail)}
                                     />
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-3">
+                            {/* <div className="sm:col-span-3">
                                 <label htmlFor="country" className="block text-sm font-medium leading-6 text-white-900">
                                     Country
                                 </label>
                                 <div className="mt-2">
                                     <select
+
                                         id="country"
                                         name="country"
                                         autoComplete="country-name"
@@ -199,7 +217,7 @@ export default function SignUp() {
                                         <option>Mexico</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="col-span-full">
                                 <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-white-900">
@@ -212,6 +230,8 @@ export default function SignUp() {
                                         id="street-address"
                                         autoComplete="street-address"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={address}
+                                        onChange={(e) => getInput(e, setAddress)}
                                     />
                                 </div>
                             </div>
@@ -227,6 +247,8 @@ export default function SignUp() {
                                         id="city"
                                         autoComplete="address-level2"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={city}
+                                        onChange={(e) => getInput(e, setCity)}
                                     />
                                 </div>
                             </div>
@@ -242,6 +264,8 @@ export default function SignUp() {
                                         id="region"
                                         autoComplete="address-level1"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={state}
+                                        onChange={(e) => getInput(e, setState)}
                                     />
                                 </div>
                             </div>
@@ -257,6 +281,8 @@ export default function SignUp() {
                                         id="postal-code"
                                         autoComplete="postal-code"
                                         className="block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        value={zip}
+                                        onChange={(e) => getInput(e, setZip)}
                                     />
                                 </div>
                             </div>

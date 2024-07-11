@@ -35,6 +35,18 @@ export default function Home() {
 
                     <p>username: {user.username}</p>
                     <p>password: {user.password}</p>
+                    <p>Bio: {user.bio}</p>
+                    <p>First Name : {user.fname}</p>
+                    <p>Last Name: {user.lname}</p>
+                    <p>email: {user.email}</p>
+                    <p>Address:</p>
+                    <address>
+                        {user.address},
+                        {user.city},
+                        {user.state},
+                        {user.zip}
+                    </address>
+
                     <button onClick={getInfo} className="btn"> get info </button>
                 </>)}
         </>

@@ -1,4 +1,3 @@
-const userCollection = [];
 //make id change to index
 function createUser(form) {
   const user = {};
@@ -14,12 +13,8 @@ function createUser(form) {
   user.city = form.city;
   user.state = form.state;
   user.zip = form.zip;
-  userCollection.push(user);
+
   return user;
 }
 
 export default createUser;
-
-function addUser(user) {
-  userCollection.push(user);
-}
