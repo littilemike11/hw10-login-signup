@@ -21,6 +21,7 @@ export default function SignUp() {
     // the function saves users[] to localStorage under the key "users"
     useEffect(() => {
         localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("userCount", JSON.stringify(userCount));
         console.log("app context", app)
     }, [users])
 

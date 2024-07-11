@@ -7,9 +7,11 @@ export default function Home() {
 
     const [user, setUser] = useState({})
 
+    //get current user when logged in
     useEffect(() => {
+        if (!isLoggedIn) return
         let userID = localStorage.getItem("userID");
-        if (userID == null) return// for first time opening
+        //if (userID == null) return// for first time opening
         setUser(JSON.parse(localStorage.getItem("users"))[userID])
 
     }, [])
@@ -21,9 +23,16 @@ export default function Home() {
 
     return (
         <>
-            <Hero />
+            <Hero
+                isLoggedIn={isLoggedIn}
+            />
+
             {isLoggedIn &&
-                (<><h1>Home Section- only seen on login</h1>
+                (<>
+                    <br />
+                    <h1>Home Section- only seen on login</h1>
+                    <h2> User Info: </h2>
+
                     <p>username: {user.username}</p>
                     <p>password: {user.password}</p>
                     <button onClick={getInfo} className="btn"> get info </button>
