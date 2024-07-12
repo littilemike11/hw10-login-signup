@@ -48,3 +48,8 @@ The program uses react dom browser router and router provider to create routes t
 ### Functions
 
 - createUser(form) - given a form object, create a user object with those values
+
+## Next Steps
+
+- implement confirm password for sign up
+- implement country input for sign up
