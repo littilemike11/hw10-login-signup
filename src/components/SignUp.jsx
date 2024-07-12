@@ -1,6 +1,7 @@
 import createUser from "../users"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import ErrorMessage from "./ErrorMessage";
 export default function SignUp() {
 
     const [users, setUsers] = useState(() => {
@@ -13,7 +14,7 @@ export default function SignUp() {
     })
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("")
+    // const [confirmPassword, setConfirmPassword] = useState("")
     const [bio, setBio] = useState("");
     const [fname, setfname] = useState("");
     const [lname, setlname] = useState("");
@@ -23,6 +24,24 @@ export default function SignUp() {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zip, setZip] = useState("");
+
+    //show error displays
+    const [isError, setIsError] = useState(false);
+    const [errorText, setErrorText] = useState("");
+
+    // const handleConfirmPassword = (e) => {
+    //     setConfirmPassword(e.target.value)
+    //     // theres a delay on when confirmPassword is updated
+    //     if (password !== confirmPassword) {
+    //         console.log(password + "-" + confirmPassword)
+    //         setIsError(true)
+    //         setErrorText("Passwords must match")
+    //     }
+    //     else {
+    //         setIsError(false)
+    //     }
+
+    // }
 
     // when users[] is updated, the function runs
     // the function saves users[] to localStorage under the key "users"
@@ -44,6 +63,7 @@ export default function SignUp() {
     //     console(e.target.value)
     // }
 
+    let isConfirmed = false;
     const navigate = useNavigate()
     async function submit() {
         if (username.trim() == "" || password.trim() == "") return
@@ -51,13 +71,14 @@ export default function SignUp() {
         let newUser = createUser({ id, username, password, bio, fname, lname, email, country, address, city, state, zip })
         setUsers([...users, newUser])
         setUserCount(userCount + 1)
+        isConfirmed = true;
         console.log(newUser)
     }
     async function signUp() {
         // wait for info to be stored from submit function
         await submit();
         //go to home screen once submit is completed
-        navigate("/")
+        if (isConfirmed) navigate("/")
     }
     return (
         <>
@@ -106,7 +127,7 @@ export default function SignUp() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="sm:col-span-4">
+                            {/* <div className="sm:col-span-4">
                                 <label htmlFor="confirm-password" className="block text-sm font-medium leading-6 text-white-900">
                                     Confirm Password
                                 </label>
@@ -117,13 +138,13 @@ export default function SignUp() {
                                             name="confirm-password"
                                             id="confirm-password"
                                             value={confirmPassword}
-                                            onChange={(e) => getInput(e, setConfirmPassword)}
+                                            onChange={handleConfirmPassword}
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-white-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                         />
                                     </div>
                                 </div>
                             </div>
-
+                            {isError && <ErrorMessage errorText={errorText} />} */}
 
                             <div className="col-span-full">
                                 <label htmlFor="about" className="block text-sm font-medium leading-6 text-white-900">
