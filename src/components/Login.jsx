@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useContext, useState } from 'react'
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "./ErrorMessage";
 export default function Login() {
     //get use context
     const setIsLoggedIn = useContext(AppContext).setIsLoggedIn;
@@ -83,21 +84,7 @@ export default function Login() {
                                 <input onChange={handlePassword} value={password} id="password" name="password" type="password" autoComplete="current-password" required className="px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
                             </div>
                         </div>
-                        {isError &&
-                            (<div className="badge badge-warning gap-2">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    className="inline-block h-4 w-4 stroke-current">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                {errorText}
-                            </div>)}
+                        {isError && <ErrorMessage errorText={errorText} />}
                         <div>
                             <Link onClick={authenticate} type="button" className="btn flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Sign in</Link>
