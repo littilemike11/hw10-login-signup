@@ -6,7 +6,6 @@ import ErrorMessage from "./ErrorMessage";
 export default function Login() {
     //get use context
     const setIsLoggedIn = useContext(AppContext).setIsLoggedIn;
-    const isLoggedIn = useContext(AppContext).isLoggedIn;
     // get user input
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -27,13 +26,25 @@ export default function Login() {
     }
 
     function authenticate() {
-        // can be more explicit in error messaging
-        if (username.trim() == "" || password.trim() == "") {
+        if (username.trim() == "" && password.trim() == "") {
             setIsError(true)
             setErrorText("Please enter username and password")
             // use setTimeout to hide error messages again
             return
         }
+        if (username.trim() == "") {
+            setIsError(true)
+            setErrorText("Please enter username")
+            // use setTimeout to hide error messages again
+            return
+        }
+        if (password.trim() == "") {
+            setIsError(true)
+            setErrorText("Please enter password")
+            // use setTimeout to hide error messages again
+            return
+        }
+
         let users = JSON.parse(localStorage.getItem("users"))
 
         let filteredUsers = users.filter(user => user.username == username & user.password == password)
